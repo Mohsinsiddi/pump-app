@@ -1,0 +1,365 @@
+{
+  "version": "0.1.0",
+  "name": "pump",
+  "instructions": [
+    {
+      "name": "createToken",
+      "accounts": [
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "recipient",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mintAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "pda",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "metadataAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenMetadataProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "metadata",
+          "type": {
+            "defined": "InitTokenParams"
+          }
+        }
+      ]
+    },
+    {
+      "name": "buyTokens",
+      "accounts": [
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "mintAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "pda",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "creatorAddress",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "solAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "sellTokens",
+      "accounts": [
+        {
+          "name": "mintAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "pda",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "creatorAddress",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "from",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "signer",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "tokenAmount",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "transferMintAuth",
+      "accounts": [
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "newMintAuth",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mintAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "revokeFreezeAuth",
+      "accounts": [
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "mintAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "highlightToken",
+      "accounts": [
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "mintAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "creatorAddress",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "recipient",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "position",
+          "type": "u64"
+        },
+        {
+          "name": "slotHours",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "InitTokenParams",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "symbol",
+            "type": "string"
+          },
+          {
+            "name": "uri",
+            "type": "string"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProgramErrorCode",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "InvalidMintAccountSpace"
+          },
+          {
+            "name": "CantInitializeMetadataPointer"
+          },
+          {
+            "name": "NotEnoughSOLSent"
+          }
+        ]
+      }
+    }
+  ],
+  "events": [
+    {
+      "name": "TokenCreateEvent",
+      "fields": [
+        {
+          "name": "mintAccount",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "creatorAddress",
+          "type": "publicKey",
+          "index": false
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "index": false
+        },
+        {
+          "name": "symbol",
+          "type": "string",
+          "index": false
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "NotEnoughEnergy",
+      "msg": "Not enough energy"
+    },
+    {
+      "code": 6001,
+      "name": "WrongAuthority",
+      "msg": "Wrong Authority"
+    }
+  ],
+  "metadata": {
+    "address": "DJMMfpsEPB6JSpzakCK9CqBtAjzRhFx7AYNUAqVktmUE"
+  }
+}
