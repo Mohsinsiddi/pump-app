@@ -26,3 +26,12 @@ export type IndividualRatings = {
   totalTradeCount: number;
   sellTradeCount: number;
 };
+
+export type LockedTokenAccountTyp = {
+  owner: string;
+  amount: number;
+  start_time: number;
+  end_time: number;
+  reward_multiplier: number;
+  lock_type: number;
+};

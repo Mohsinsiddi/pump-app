@@ -16,6 +16,11 @@
           "isSigner": false
         },
         {
+          "name": "userTokenAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
           "name": "mintAccount",
           "isMut": true,
           "isSigner": false
@@ -69,6 +74,19 @@
           "isSigner": true
         },
         {
+          "name": "recipient",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "Check Account Balance"
+          ]
+        },
+        {
           "name": "mintAccount",
           "isMut": true,
           "isSigner": false
@@ -119,6 +137,24 @@
       "name": "sellTokens",
       "accounts": [
         {
+          "name": "signer",
+          "isMut": false,
+          "isSigner": true
+        },
+        {
+          "name": "recipient",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "userTokenAccount",
+          "isMut": false,
+          "isSigner": false,
+          "docs": [
+            "Check Account Balance"
+          ]
+        },
+        {
           "name": "mintAccount",
           "isMut": true,
           "isSigner": false
@@ -142,11 +178,6 @@
           "name": "from",
           "isMut": true,
           "isSigner": false
-        },
-        {
-          "name": "signer",
-          "isMut": false,
-          "isSigner": true
         },
         {
           "name": "systemProgram",
@@ -275,6 +306,28 @@
           "type": "u64"
         }
       ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "TokenData",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "creator",
+            "type": "publicKey"
+          },
+          {
+            "name": "mintAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "createdAt",
+            "type": "i64"
+          }
+        ]
+      }
     }
   ],
   "types": [

@@ -1,5 +1,13 @@
 import { PublicKey } from "@solana/web3.js";
-import { MPL_TOKEN_METADATA_PROGRAM_ID, syphonProgramID } from "./constants";
+import {
+  MPL_TOKEN_METADATA_PROGRAM_ID,
+  syphonProgramID,
+  syphonTokenLockProgramID,
+} from "./constants";
+import {
+  ASSOCIATED_TOKEN_PROGRAM_ID,
+  TOKEN_PROGRAM_ID,
+} from "@solana/spl-token";
 
 // Constants from our program
 const MINT_SEED = "mmm";
@@ -35,4 +43,44 @@ export const getTokenvaultPDA = async (mint: PublicKey) => {
     syphonProgramID
   );
   return pda;
+};
+
+export const getLockingAccountPDA = (
+  user_address: string,
+  lock_type: string
+) => {
+  const [lock_acc] = PublicKey.findProgramAddressSync(
+    [
+      Buffer.from("lock_account"),
+      Buffer.from(lock_type),
+      new PublicKey(user_address).toBuffer(),
+    ],
+    syphonTokenLockProgramID
+  );
+  return lock_acc;
+};
+
+export const getGlobalATA = () => {
+  const [globalLockedTokenAccount, globalLockedTokenAccountBump] =
+    PublicKey.findProgramAddressSync(
+      [Buffer.from("global_locked_token_account")],
+      syphonTokenLockProgramID
+    );
+  return globalLockedTokenAccount;
+};
+
+export const getProgramSigner = () => {
+  const [program_signer, _] = PublicKey.findProgramAddressSync(
+    [Buffer.from("program_signer")],
+    syphonTokenLockProgramID
+  );
+  return program_signer;
+};
+
+export const getTokenATA = (OWNER: PublicKey, MINT: PublicKey) => {
+  const [ata_address] = PublicKey.findProgramAddressSync(
+    [OWNER.toBuffer(), TOKEN_PROGRAM_ID.toBuffer(), MINT.toBuffer()],
+    ASSOCIATED_TOKEN_PROGRAM_ID
+  );
+  return ata_address;
 };

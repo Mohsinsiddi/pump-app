@@ -73,6 +73,7 @@ function CountdownTimer({ deadline }: CountdownTimerProps) {
     >
       <div className={"flex"}>
         {Object.entries(timeLeft).map(([unit, value], index, array) => {
+          console.log(unit, value);
           return (
             <div key={unit} className="">
               <div className="flex flex-row">

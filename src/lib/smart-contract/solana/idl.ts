@@ -18,6 +18,11 @@ export const IDL: Idl = {
           isSigner: false,
         },
         {
+          name: "userTokenAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
           name: "mintAccount",
           isMut: true,
           isSigner: false,
@@ -71,6 +76,17 @@ export const IDL: Idl = {
           isSigner: true,
         },
         {
+          name: "recipient",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "userTokenAccount",
+          isMut: false,
+          isSigner: false,
+          docs: ["Check Account Balance"],
+        },
+        {
           name: "mintAccount",
           isMut: true,
           isSigner: false,
@@ -121,6 +137,22 @@ export const IDL: Idl = {
       name: "sellTokens",
       accounts: [
         {
+          name: "signer",
+          isMut: false,
+          isSigner: true,
+        },
+        {
+          name: "recipient",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "userTokenAccount",
+          isMut: false,
+          isSigner: false,
+          docs: ["Check Account Balance"],
+        },
+        {
           name: "mintAccount",
           isMut: true,
           isSigner: false,
@@ -144,11 +176,6 @@ export const IDL: Idl = {
           name: "from",
           isMut: true,
           isSigner: false,
-        },
-        {
-          name: "signer",
-          isMut: false,
-          isSigner: true,
         },
         {
           name: "systemProgram",
@@ -279,6 +306,28 @@ export const IDL: Idl = {
       ],
     },
   ],
+  accounts: [
+    {
+      name: "TokenData",
+      type: {
+        kind: "struct",
+        fields: [
+          {
+            name: "creator",
+            type: "publicKey",
+          },
+          {
+            name: "mintAccount",
+            type: "publicKey",
+          },
+          {
+            name: "createdAt",
+            type: "i64",
+          },
+        ],
+      },
+    },
+  ],
   types: [
     {
       name: "InitTokenParams",
@@ -363,5 +412,229 @@ export const IDL: Idl = {
   ],
   metadata: {
     address: "DJMMfpsEPB6JSpzakCK9CqBtAjzRhFx7AYNUAqVktmUE",
+  },
+};
+
+export const SyphonTokenLockIDl: Idl = {
+  version: "0.1.0",
+  name: "pump_game",
+  instructions: [
+    {
+      name: "createGlobalAta",
+      accounts: [
+        {
+          name: "user",
+          isMut: true,
+          isSigner: true,
+        },
+        {
+          name: "globalLockedTokenAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "programSigner",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "mint",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "systemProgram",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "tokenProgram",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "rent",
+          isMut: false,
+          isSigner: false,
+        },
+      ],
+      args: [],
+    },
+    {
+      name: "lockTokens",
+      accounts: [
+        {
+          name: "user",
+          isMut: true,
+          isSigner: true,
+        },
+        {
+          name: "userTokenAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "lockingAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "globalLockedTokenAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "tokenProgram",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "systemProgram",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "rent",
+          isMut: false,
+          isSigner: false,
+        },
+      ],
+      args: [
+        {
+          name: "lockType",
+          type: "string",
+        },
+        {
+          name: "amount",
+          type: "u64",
+        },
+      ],
+    },
+    {
+      name: "unlockTokens",
+      accounts: [
+        {
+          name: "user",
+          isMut: true,
+          isSigner: true,
+        },
+        {
+          name: "userTokenAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "lockingAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "globalLockedTokenAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "tokenProgram",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "programSigner",
+          isMut: false,
+          isSigner: false,
+        },
+      ],
+      args: [
+        {
+          name: "lockType",
+          type: "string",
+        },
+      ],
+    },
+    {
+      name: "adminWithdrawTokens",
+      accounts: [
+        {
+          name: "admin",
+          isMut: true,
+          isSigner: true,
+        },
+        {
+          name: "adminTokenAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "globalLockedTokenAccount",
+          isMut: true,
+          isSigner: false,
+        },
+        {
+          name: "tokenProgram",
+          isMut: false,
+          isSigner: false,
+        },
+        {
+          name: "programSigner",
+          isMut: false,
+          isSigner: false,
+        },
+      ],
+      args: [
+        {
+          name: "amount",
+          type: "u64",
+        },
+      ],
+    },
+  ],
+  accounts: [
+    {
+      name: "LockingAccount",
+      type: {
+        kind: "struct",
+        fields: [
+          {
+            name: "owner",
+            type: "publicKey",
+          },
+          {
+            name: "amount",
+            type: "u64",
+          },
+          {
+            name: "startTime",
+            type: "u64",
+          },
+          {
+            name: "endTime",
+            type: "u64",
+          },
+          {
+            name: "rewardMultiplier",
+            type: "f64",
+          },
+          {
+            name: "lockType",
+            type: "u8",
+          },
+        ],
+      },
+    },
+  ],
+  errors: [
+    {
+      code: 6000,
+      name: "InvalidLockType",
+      msg: "Invalid lock type.",
+    },
+    {
+      code: 6001,
+      name: "LockPeriodNotOver",
+      msg: "Lock period is not over.",
+    },
+  ],
+  metadata: {
+    address: "AGAtML592JZnHBjDDEZ97DGNy9jwETaPiAxtrBfcXFaX",
   },
 };
